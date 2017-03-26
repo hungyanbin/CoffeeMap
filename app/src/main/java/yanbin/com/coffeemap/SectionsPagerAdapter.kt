@@ -11,6 +11,9 @@ class SectionsPagerAdapter(fm : FragmentManager) : FragmentPagerAdapter(fm){
     }
 
     override fun getItem(position: Int): Fragment {
+        if(position == 1){
+            return ShopFragment.newInstance()
+        }
         return BaseFragment.newInstance(position)
     }
 }

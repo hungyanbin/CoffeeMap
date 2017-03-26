@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
 
     companion object {
 
