@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import yanbin.com.coffeemap.db.Shop
 
 class ShopFragment : BaseFragment() {
 

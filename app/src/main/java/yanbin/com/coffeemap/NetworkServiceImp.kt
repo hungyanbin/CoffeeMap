@@ -3,6 +3,7 @@ package yanbin.com.coffeemap
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
+import yanbin.com.coffeemap.db.Shop
 import java.io.IOException
 
 class NetworkServiceImp : NetworkService{

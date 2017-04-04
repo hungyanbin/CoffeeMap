@@ -1,5 +1,7 @@
 package yanbin.com.coffeemap
 
+import yanbin.com.coffeemap.db.Shop
+
 interface NetworkService{
     fun getCoffeeShops(shopResponse: ShopResponse)
 }
