@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import org.greenrobot.eventbus.EventBus
 
 open class BaseFragment : Fragment() {
 
@@ -23,6 +24,7 @@ open class BaseFragment : Fragment() {
     }
 
     private var textLabel: TextView? = null
+    protected val eventBus: EventBus = EventBus.getDefault()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_main, container, false)

@@ -24,7 +24,7 @@ class NetworkServiceImp : NetworkService{
     override fun getCoffeeShops(shopResponse: ShopResponse) {
         call.enqueue(object: Callback{
             override fun onFailure(call: Call?, e: IOException?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                shopResponse.onError(e.toString())
             }
 
             override fun onResponse(call: Call?, response: Response?) {

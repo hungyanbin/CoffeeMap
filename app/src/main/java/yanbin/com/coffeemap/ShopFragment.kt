@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class ShopFragment : BaseFragment() {
 
@@ -41,8 +43,7 @@ class ShopFragment : BaseFragment() {
         val networkService = NetworkServiceImp()
         networkService.getCoffeeShops(object : ShopResponse {
             override fun onResponse(shops: List<Shop>) {
-                shopAdapter?.shops = shops
-                notifyDataSetChanged()
+                eventBus.post(LoadShopEvent(shops))
             }
 
             override fun onError(message: String) {
@@ -51,9 +52,19 @@ class ShopFragment : BaseFragment() {
         })
     }
 
-    private fun notifyDataSetChanged(){
-        rootView?.post {
-            shopAdapter?.notifyDataSetChanged()
-        }
+    override fun onStart() {
+        super.onStart()
+        eventBus.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        eventBus.unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(loadShopEvent: LoadShopEvent){
+        shopAdapter?.shops = loadShopEvent.shops
+        shopAdapter?.notifyDataSetChanged()
     }
 }
