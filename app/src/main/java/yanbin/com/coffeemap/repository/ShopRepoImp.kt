@@ -18,6 +18,23 @@ class ShopRepoImp(val networkService: NetworkService = NetworkServiceImp(),
         }
     }
 
+    override fun loadNearShops(latitude: String, longitude: String) {
+        val shops = shopDao?.loadAll() as List<Shop>
+        val nearShops = shops.filter { isNear(it, latitude, longitude) }
+        eventBus.post(LoadNearShopEvent(nearShops))
+    }
+
+    fun isNear(shop: Shop, latitude: String, longitude: String) : Boolean{
+        val shopLatitude = shop.latitude.toDouble()
+        val shopLongitude = shop.longitude.toDouble()
+        val userLatitude = latitude.toDouble()
+        val userLongitude = longitude.toDouble()
+
+        val distance = Math.pow(shopLatitude - userLatitude, 2.0) + Math.pow(shopLongitude - userLongitude, 2.0)
+
+        return distance < 0.0001
+    }
+
     fun hasLocalData() : Boolean{
         return shopDao?.count() != 0L
     }
