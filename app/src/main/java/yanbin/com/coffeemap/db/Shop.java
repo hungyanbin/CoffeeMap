@@ -153,5 +153,27 @@ public class Shop {
         this.music = music;
     }
 
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Shop{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", latitude='").append(latitude).append('\'');
+        sb.append(", longitude='").append(longitude).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", open_time='").append(open_time).append('\'');
+        sb.append(", limited_time='").append(limited_time).append('\'');
+        sb.append(", socket='").append(socket).append('\'');
+        sb.append(", standing_desk='").append(standing_desk).append('\'');
+        sb.append(", mrt='").append(mrt).append('\'');
+        sb.append(", wifi='").append(wifi).append('\'');
+        sb.append(", seat='").append(seat).append('\'');
+        sb.append(", quit='").append(quit).append('\'');
+        sb.append(", tasty='").append(tasty).append('\'');
+        sb.append(", cheap='").append(cheap).append('\'');
+        sb.append(", music='").append(music).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

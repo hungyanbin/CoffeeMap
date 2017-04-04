@@ -7,10 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import yanbin.com.coffeemap.db.Shop
+import yanbin.com.coffeemap.repository.ShopRepoImp
 
 class ShopFragment : BaseFragment() {
 
@@ -41,25 +40,17 @@ class ShopFragment : BaseFragment() {
     }
 
     private fun getShopsFormUrl() {
-        val networkService = NetworkServiceImp()
-        networkService.getCoffeeShops(object : ShopResponse {
-            override fun onResponse(shops: List<Shop>) {
-                eventBus.post(LoadShopEvent(shops))
-            }
-
-            override fun onError(message: String) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-            }
-        })
+        val shopRepo = ShopRepoImp()
+        shopRepo.loadShops()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         eventBus.register(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         eventBus.unregister(this)
     }
 
