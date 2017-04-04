@@ -13,8 +13,8 @@ class ShopAdapter : RecyclerView.Adapter<ShopViewHolder>(){
     override fun onBindViewHolder(holder: ShopViewHolder, position: Int) {
         val shop = shops[position]
         holder.textName.text = shop.name
-        holder.textLocation.text = shop.location
-        holder.textTime.text = shop.time
+        holder.textLocation.text = shop.address
+        holder.textTime.text = shop.open_time
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopViewHolder {
