@@ -7,4 +7,15 @@
     <color name="gray">#979797</color>
     <color name="gray_50opacity">#99979797</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="colorPicker_1">#c6bcbc</color>
+    <color name="colorPicker_2">#f89680</color>
+    <color name="colorPicker_3">#f5a623</color>
+    <color name="colorPicker_4">#9bce02</color>
+    <color name="colorPicker_5">#00d0ad</color>
+    <color name="colorPicker_6">#00cfe4</color>
+    <color name="colorPicker_7">#0794bf</color>
+    <color name="colorPicker_8">#e289fa</color>
+    <color name="colorPicker_9">#f76b9d</color>
+    <color name="colorPicker_10">#a74e3f</color>
 </resources>

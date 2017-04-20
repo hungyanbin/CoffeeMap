@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.BaseFragment
+import yanbin.com.coffeemap.GridItemDecoration
 import yanbin.com.coffeemap.LoadNearShopEvent
 import yanbin.com.coffeemap.R
 import yanbin.com.coffeemap.repository.ShopRepoImp
@@ -40,10 +41,10 @@ class NearShopGridFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         rootView = view
         val recycleShop = view.findViewById(R.id.recycleShop) as RecyclerView
-        shopAdapter = ShopGridAdapter()
+        shopAdapter = ShopGridAdapter(context)
         recycleShop.adapter = shopAdapter
         recycleShop.layoutManager = GridLayoutManager(context, 2)
-//        recycleShop.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        recycleShop.addItemDecoration(GridItemDecoration(2))
         getShops()
     }
 

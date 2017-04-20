@@ -9,7 +9,6 @@
         android:id="@+id/imageShop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@color/colorAccent"
         app:layout_aspectRatio="100%"
         app:layout_widthPercent="100%" />
 
