@@ -6,7 +6,6 @@ class CoffeeMapApplication : Application(){
 
     override fun onCreate() {
         super.onCreate()
-        val inject = Injection()
-        inject.init(this)
+        ServiceManager.init(this)
     }
 }

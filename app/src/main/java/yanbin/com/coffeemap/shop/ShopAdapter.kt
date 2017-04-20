@@ -1,10 +1,11 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.shop
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import yanbin.com.coffeemap.R
 import yanbin.com.coffeemap.db.Shop
 
 class ShopAdapter : RecyclerView.Adapter<ShopViewHolder>(){
@@ -30,7 +31,7 @@ class ShopAdapter : RecyclerView.Adapter<ShopViewHolder>(){
 
 class ShopViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-    val textName:TextView = itemView.findViewById(R.id.textName) as TextView
-    val textLocation:TextView = itemView.findViewById(R.id.textLocation) as TextView
-    val textTime:TextView = itemView.findViewById(R.id.textTime) as TextView
+    val textName: TextView = itemView.findViewById(R.id.textName) as TextView
+    val textLocation: TextView = itemView.findViewById(R.id.textLocation) as TextView
+    val textTime: TextView = itemView.findViewById(R.id.textTime) as TextView
 }

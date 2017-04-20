@@ -1,13 +1,14 @@
 package yanbin.com.coffeemap.repository
 
+import android.location.Location
 import org.greenrobot.eventbus.EventBus
 import yanbin.com.coffeemap.*
 import yanbin.com.coffeemap.db.Shop
 import yanbin.com.coffeemap.db.ShopDao
 
-class ShopRepoImp(val networkService: NetworkService = NetworkServiceImp(),
+class ShopRepoImp(val networkService: NetworkService = ServiceManager.networkService,
                   val eventBus: EventBus = EventBus.getDefault(),
-                  val shopDao: ShopDao? = Injection.dbService?.shopDao) : ShopRepo{
+                  val shopDao: ShopDao? = ServiceManager.dbService?.shopDao) : ShopRepo{
 
 
     override fun loadShops() {
@@ -30,9 +31,10 @@ class ShopRepoImp(val networkService: NetworkService = NetworkServiceImp(),
         val userLatitude = latitude.toDouble()
         val userLongitude = longitude.toDouble()
 
-        val distance = Math.pow(shopLatitude - userLatitude, 2.0) + Math.pow(shopLongitude - userLongitude, 2.0)
+        val distance : FloatArray = floatArrayOf(0.0f)
+        Location.distanceBetween(shopLatitude, shopLongitude, userLatitude, userLongitude, distance)
 
-        return distance < 0.0001
+        return distance[0] < 2000
     }
 
     fun hasLocalData() : Boolean{

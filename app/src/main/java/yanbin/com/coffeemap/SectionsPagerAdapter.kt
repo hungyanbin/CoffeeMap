@@ -3,6 +3,9 @@ package yanbin.com.coffeemap
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import yanbin.com.coffeemap.shop.NearShopFragment
+import yanbin.com.coffeemap.shop.NearShopGridFragment
+import yanbin.com.coffeemap.shop.ShopFragment
 
 class SectionsPagerAdapter(fm : FragmentManager) : FragmentPagerAdapter(fm){
 
@@ -14,7 +17,8 @@ class SectionsPagerAdapter(fm : FragmentManager) : FragmentPagerAdapter(fm){
         when(position){
             0 -> return NearShopFragment.newInstance()
             1 -> return ShopFragment.newInstance()
-            else -> return BaseFragment.newInstance(position)
+            2 -> return NearShopGridFragment.newInstance()
+            else -> return ShopFragment.newInstance()
         }
     }
 }
