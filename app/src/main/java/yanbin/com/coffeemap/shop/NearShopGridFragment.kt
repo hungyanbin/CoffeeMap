@@ -5,9 +5,12 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationServices
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.framework.BaseFragment
@@ -32,6 +35,7 @@ class NearShopGridFragment : BaseFragment() {
 
     private var rootView: View? = null
     private var shopAdapter: ShopGridAdapter? = null
+    private var googleApiClient: GoogleApiClient? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_shops, container, false)
@@ -46,6 +50,29 @@ class NearShopGridFragment : BaseFragment() {
         recycleShop.layoutManager = GridLayoutManager(context, 2)
         recycleShop.addItemDecoration(GridItemDecoration(2))
         getShops()
+        createClientIfNull()
+    }
+
+    private fun createClientIfNull(){
+        if(googleApiClient == null){
+            googleApiClient = GoogleApiClient.Builder(context)
+                    .addConnectionCallbacks(getConnectionCallBack())
+                    .addApi(LocationServices.API)
+                    .build()
+        }
+    }
+
+    private fun getConnectionCallBack(): GoogleApiClient.ConnectionCallbacks{
+        return object: GoogleApiClient.ConnectionCallbacks{
+            override fun onConnected(p0: Bundle?) {
+                val location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient)
+                Log.i("tag", location.toString())
+            }
+
+            override fun onConnectionSuspended(p0: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
     }
 
     private fun getShops() {
@@ -56,6 +83,16 @@ class NearShopGridFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventBus.register(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        googleApiClient?.connect()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        googleApiClient?.disconnect()
     }
 
     override fun onDestroyView() {
