@@ -14,14 +14,10 @@ import yanbin.com.coffeemap.LoadNearShopEvent
 import yanbin.com.coffeemap.R
 import yanbin.com.coffeemap.ServiceManager
 import yanbin.com.coffeemap.repository.ShopRepoImp
-import yanbin.com.coffeemap.shop.ShopAdapter
 
 class NearShopFragment : BaseFragment() {
 
     companion object {
-
-        val latitude = "25.059195"
-        val longitude = "121.490563"
 
         fun newInstance(): NearShopFragment {
             val baseFragment = NearShopFragment()
@@ -50,7 +46,7 @@ class NearShopFragment : BaseFragment() {
     private fun getShops() {
         val shopRepo = ShopRepoImp()
         val locationService = ServiceManager.locationService
-        shopRepo.loadNearShops(locationService.getLastLocation())
+        locationService.onLocated { location -> shopRepo.loadNearShops(location)}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

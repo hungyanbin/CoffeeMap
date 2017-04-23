@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import yanbin.com.coffeemap.*
 import yanbin.com.coffeemap.framework.BaseFragment
-import yanbin.com.coffeemap.GridItemDecoration
-import yanbin.com.coffeemap.LoadNearShopEvent
-import yanbin.com.coffeemap.R
-import yanbin.com.coffeemap.ServiceManager
 import yanbin.com.coffeemap.repository.ShopRepoImp
 
 class NearShopGridFragment : BaseFragment() {
@@ -47,7 +44,7 @@ class NearShopGridFragment : BaseFragment() {
     private fun getShops() {
         val shopRepo = ShopRepoImp()
         val locationService = ServiceManager.locationService
-        shopRepo.loadNearShops(locationService.getLastLocation())
+        locationService.onLocated { location -> shopRepo.loadNearShops(location)}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
