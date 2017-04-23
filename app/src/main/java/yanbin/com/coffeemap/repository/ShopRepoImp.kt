@@ -3,6 +3,10 @@ package yanbin.com.coffeemap.repository
 import android.location.Location as AndroidLocation
 import org.greenrobot.eventbus.EventBus
 import yanbin.com.coffeemap.*
+import yanbin.com.coffeemap.common.Location
+import yanbin.com.coffeemap.common.NetworkService
+import yanbin.com.coffeemap.common.ServiceManager
+import yanbin.com.coffeemap.common.ShopResponse
 import yanbin.com.coffeemap.db.Shop
 import yanbin.com.coffeemap.db.ShopDao
 

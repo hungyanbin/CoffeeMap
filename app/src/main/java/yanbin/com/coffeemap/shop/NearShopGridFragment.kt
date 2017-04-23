@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.*
+import yanbin.com.coffeemap.common.ServiceManager
 import yanbin.com.coffeemap.framework.BaseFragment
 import yanbin.com.coffeemap.repository.ShopRepoImp
 

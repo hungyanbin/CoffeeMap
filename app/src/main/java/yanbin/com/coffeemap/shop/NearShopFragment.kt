@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.framework.BaseFragment
 import yanbin.com.coffeemap.LoadNearShopEvent
 import yanbin.com.coffeemap.R
-import yanbin.com.coffeemap.ServiceManager
+import yanbin.com.coffeemap.common.ServiceManager
 import yanbin.com.coffeemap.repository.ShopRepoImp
 
 class NearShopFragment : BaseFragment() {

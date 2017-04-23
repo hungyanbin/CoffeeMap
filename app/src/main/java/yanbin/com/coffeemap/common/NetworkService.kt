@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.common
 
 import yanbin.com.coffeemap.db.Shop
 

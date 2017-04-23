@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.common
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -6,7 +6,7 @@ import okhttp3.*
 import yanbin.com.coffeemap.db.Shop
 import java.io.IOException
 
-class NetworkServiceImp : NetworkService{
+class NetworkServiceImp : NetworkService {
 
     companion object{
         private val SHOPS_URL = "https://cafenomad.tw/api/v1.2/cafes"
@@ -23,7 +23,7 @@ class NetworkServiceImp : NetworkService{
     }
 
     override fun getCoffeeShops(shopResponse: ShopResponse) {
-        call.enqueue(object: Callback{
+        call.enqueue(object: Callback {
             override fun onFailure(call: Call?, e: IOException?) {
                 shopResponse.onError(e.toString())
             }

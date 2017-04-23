@@ -1,16 +1,17 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.common
 
 import android.content.Context
 import android.os.Bundle
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
+import yanbin.com.coffeemap.common.Location
 
 interface LocationService {
 
     fun onStart()
     fun onStop()
     fun init(context: Context)
-    fun onLocated(listener: (location:Location) -> Unit)
+    fun onLocated(listener: (location: Location) -> Unit)
 }
 
 class LocationServiceImp : LocationService {

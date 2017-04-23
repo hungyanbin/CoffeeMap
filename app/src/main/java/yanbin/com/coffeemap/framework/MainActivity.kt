@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import yanbin.com.coffeemap.R
 import yanbin.com.coffeemap.SectionsPagerAdapter
-import yanbin.com.coffeemap.ServiceManager
+import yanbin.com.coffeemap.common.ServiceManager
 
 class MainActivity : AppCompatActivity() {
 

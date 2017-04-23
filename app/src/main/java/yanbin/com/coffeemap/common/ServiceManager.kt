@@ -1,6 +1,7 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.common
 
 import android.content.Context
+import yanbin.com.coffeemap.*
 
 object ServiceManager {
 
