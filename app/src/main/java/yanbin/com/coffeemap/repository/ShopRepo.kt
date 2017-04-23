@@ -1,8 +1,10 @@
 package yanbin.com.coffeemap.repository
 
-interface ShopRepo{
+import yanbin.com.coffeemap.Location
+
+interface ShopRepo {
     fun loadShops()
-    fun loadNearShops(latitude: String, longitude: String)
+    fun loadNearShops(location: Location)
 }
 
 

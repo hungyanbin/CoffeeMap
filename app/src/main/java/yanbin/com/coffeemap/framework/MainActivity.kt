@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.view.Menu
 import yanbin.com.coffeemap.R
 import yanbin.com.coffeemap.SectionsPagerAdapter
+import yanbin.com.coffeemap.ServiceManager
 
 class MainActivity : AppCompatActivity() {
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     private var mViewPager: ViewPager? = null
+    private val locationService = ServiceManager.locationService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,14 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onStart() {
+        super.onStart()
+        locationService.onStart()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        locationService.onStop()
+    }
 }
 

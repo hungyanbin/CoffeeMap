@@ -1,6 +1,6 @@
 package yanbin.com.coffeemap.repository
 
-import android.location.Location
+import android.location.Location as AndroidLocation
 import org.greenrobot.eventbus.EventBus
 import yanbin.com.coffeemap.*
 import yanbin.com.coffeemap.db.Shop
@@ -19,20 +19,21 @@ class ShopRepoImp(val networkService: NetworkService = ServiceManager.networkSer
         }
     }
 
-    override fun loadNearShops(latitude: String, longitude: String) {
+
+    override fun loadNearShops(location: Location) {
         val shops = shopDao?.loadAll() as List<Shop>
-        val nearShops = shops.filter { isNear(it, latitude, longitude) }
+        val nearShops = shops.filter { isNear(it, longitude = location.longitude, latitude = location.latitude) }
         eventBus.post(LoadNearShopEvent(nearShops))
     }
 
-    fun isNear(shop: Shop, latitude: String, longitude: String) : Boolean{
+    fun isNear(shop: Shop, latitude: Double, longitude: Double) : Boolean{
         val shopLatitude = shop.latitude.toDouble()
         val shopLongitude = shop.longitude.toDouble()
-        val userLatitude = latitude.toDouble()
-        val userLongitude = longitude.toDouble()
+        val userLatitude = latitude
+        val userLongitude = longitude
 
         val distance : FloatArray = floatArrayOf(0.0f)
-        Location.distanceBetween(shopLatitude, shopLongitude, userLatitude, userLongitude, distance)
+        AndroidLocation.distanceBetween(shopLatitude, shopLongitude, userLatitude, userLongitude, distance)
 
         return distance[0] < 2000
     }

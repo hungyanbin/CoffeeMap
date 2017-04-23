@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.framework.BaseFragment
 import yanbin.com.coffeemap.LoadNearShopEvent
 import yanbin.com.coffeemap.R
+import yanbin.com.coffeemap.ServiceManager
 import yanbin.com.coffeemap.repository.ShopRepoImp
 import yanbin.com.coffeemap.shop.ShopAdapter
 
@@ -48,7 +49,8 @@ class NearShopFragment : BaseFragment() {
 
     private fun getShops() {
         val shopRepo = ShopRepoImp()
-        shopRepo.loadNearShops(latitude, longitude)
+        val locationService = ServiceManager.locationService
+        shopRepo.loadNearShops(locationService.getLastLocation())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
