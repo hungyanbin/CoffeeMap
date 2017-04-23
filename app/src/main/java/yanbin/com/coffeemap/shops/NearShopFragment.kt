@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap.shop
+package yanbin.com.coffeemap.shops
 
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -10,16 +10,17 @@ import android.view.ViewGroup
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.framework.BaseFragment
-import yanbin.com.coffeemap.LoadShopEvent
+import yanbin.com.coffeemap.LoadNearShopEvent
 import yanbin.com.coffeemap.R
+import yanbin.com.coffeemap.common.ServiceManager
 import yanbin.com.coffeemap.repository.ShopRepoImp
 
-class ShopFragment : BaseFragment() {
+class NearShopFragment : BaseFragment() {
 
     companion object {
 
-        fun newInstance(): ShopFragment {
-            val baseFragment = ShopFragment()
+        fun newInstance(): NearShopFragment {
+            val baseFragment = NearShopFragment()
             return baseFragment
         }
     }
@@ -28,8 +29,8 @@ class ShopFragment : BaseFragment() {
     private var shopAdapter: ShopAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_shops, container, false)
         eventBus.register(this)
+        val rootView = inflater.inflate(R.layout.fragment_shops, container, false)
         return rootView
     }
 
@@ -40,12 +41,13 @@ class ShopFragment : BaseFragment() {
         recycleShop.adapter = shopAdapter
         recycleShop.layoutManager = LinearLayoutManager(context)
         recycleShop.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        getShopsFormUrl()
+        getShops()
     }
 
-    private fun getShopsFormUrl() {
+    private fun getShops() {
         val shopRepo = ShopRepoImp()
-        shopRepo.loadShops()
+        val locationService = ServiceManager.locationService
+        locationService.onLocated { location -> shopRepo.loadNearShops(location)}
     }
 
     override fun onDestroyView() {
@@ -54,8 +56,8 @@ class ShopFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(loadShopEvent: LoadShopEvent){
-        shopAdapter?.shops = loadShopEvent.shops
+    fun onEvent(nearShopEvent: LoadNearShopEvent){
+        shopAdapter?.shops = nearShopEvent.shops
         shopAdapter?.notifyDataSetChanged()
     }
 }

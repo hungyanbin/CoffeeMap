@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap.shop
+package yanbin.com.coffeemap.shops
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

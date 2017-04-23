@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap.shop
+package yanbin.com.coffeemap.shops
 
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -10,17 +10,16 @@ import android.view.ViewGroup
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.framework.BaseFragment
-import yanbin.com.coffeemap.LoadNearShopEvent
+import yanbin.com.coffeemap.LoadShopEvent
 import yanbin.com.coffeemap.R
-import yanbin.com.coffeemap.common.ServiceManager
 import yanbin.com.coffeemap.repository.ShopRepoImp
 
-class NearShopFragment : BaseFragment() {
+class ShopFragment : BaseFragment() {
 
     companion object {
 
-        fun newInstance(): NearShopFragment {
-            val baseFragment = NearShopFragment()
+        fun newInstance(): ShopFragment {
+            val baseFragment = ShopFragment()
             return baseFragment
         }
     }
@@ -29,8 +28,8 @@ class NearShopFragment : BaseFragment() {
     private var shopAdapter: ShopAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        eventBus.register(this)
         val rootView = inflater.inflate(R.layout.fragment_shops, container, false)
+        eventBus.register(this)
         return rootView
     }
 
@@ -41,13 +40,12 @@ class NearShopFragment : BaseFragment() {
         recycleShop.adapter = shopAdapter
         recycleShop.layoutManager = LinearLayoutManager(context)
         recycleShop.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        getShops()
+        getShopsFormUrl()
     }
 
-    private fun getShops() {
+    private fun getShopsFormUrl() {
         val shopRepo = ShopRepoImp()
-        val locationService = ServiceManager.locationService
-        locationService.onLocated { location -> shopRepo.loadNearShops(location)}
+        shopRepo.loadShops()
     }
 
     override fun onDestroyView() {
@@ -56,8 +54,8 @@ class NearShopFragment : BaseFragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(nearShopEvent: LoadNearShopEvent){
-        shopAdapter?.shops = nearShopEvent.shops
+    fun onEvent(loadShopEvent: LoadShopEvent){
+        shopAdapter?.shops = loadShopEvent.shops
         shopAdapter?.notifyDataSetChanged()
     }
 }

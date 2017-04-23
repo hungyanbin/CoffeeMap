@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap.shop
+package yanbin.com.coffeemap.shops
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager

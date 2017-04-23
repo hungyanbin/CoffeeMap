@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap.shop
+package yanbin.com.coffeemap.shops
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
