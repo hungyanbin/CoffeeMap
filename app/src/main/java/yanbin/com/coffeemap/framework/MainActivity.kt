@@ -1,13 +1,13 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.framework
 
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 
 import android.support.v4.view.ViewPager
 import android.os.Bundle
 import android.view.Menu
+import yanbin.com.coffeemap.R
+import yanbin.com.coffeemap.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,14 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         mViewPager = findViewById(R.id.container) as ViewPager
         mViewPager!!.adapter = mSectionsPagerAdapter
-
-
-        val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

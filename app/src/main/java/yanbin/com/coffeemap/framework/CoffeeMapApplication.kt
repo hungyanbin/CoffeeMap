@@ -1,6 +1,7 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.framework
 
 import android.app.Application
+import yanbin.com.coffeemap.ServiceManager
 
 class CoffeeMapApplication : Application(){
 

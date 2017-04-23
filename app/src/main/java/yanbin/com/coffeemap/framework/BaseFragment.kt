@@ -1,4 +1,4 @@
-package yanbin.com.coffeemap
+package yanbin.com.coffeemap.framework
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import org.greenrobot.eventbus.EventBus
+import yanbin.com.coffeemap.R
 
 open class BaseFragment : Fragment() {
 
@@ -14,7 +15,7 @@ open class BaseFragment : Fragment() {
 
         val KEY_SECTION_NUMBER = "sectionNumber"
 
-        fun newInstance(sectionNumber : Int) : BaseFragment{
+        fun newInstance(sectionNumber : Int) : BaseFragment {
             val bundle = Bundle()
             bundle.putInt(KEY_SECTION_NUMBER, sectionNumber)
             val baseFragment = BaseFragment()

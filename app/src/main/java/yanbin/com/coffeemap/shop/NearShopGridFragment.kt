@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import yanbin.com.coffeemap.BaseFragment
+import yanbin.com.coffeemap.framework.BaseFragment
 import yanbin.com.coffeemap.GridItemDecoration
 import yanbin.com.coffeemap.LoadNearShopEvent
 import yanbin.com.coffeemap.R
