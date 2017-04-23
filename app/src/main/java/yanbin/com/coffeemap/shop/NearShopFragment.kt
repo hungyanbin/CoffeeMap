@@ -29,6 +29,7 @@ class NearShopFragment : BaseFragment() {
     private var shopAdapter: ShopAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        eventBus.register(this)
         val rootView = inflater.inflate(R.layout.fragment_shops, container, false)
         return rootView
     }
@@ -47,11 +48,6 @@ class NearShopFragment : BaseFragment() {
         val shopRepo = ShopRepoImp()
         val locationService = ServiceManager.locationService
         locationService.onLocated { location -> shopRepo.loadNearShops(location)}
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        eventBus.register(this)
     }
 
     override fun onDestroyView() {

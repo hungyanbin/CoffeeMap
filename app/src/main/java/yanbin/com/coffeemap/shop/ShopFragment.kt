@@ -29,6 +29,7 @@ class ShopFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_shops, container, false)
+        eventBus.register(this)
         return rootView
     }
 
@@ -45,11 +46,6 @@ class ShopFragment : BaseFragment() {
     private fun getShopsFormUrl() {
         val shopRepo = ShopRepoImp()
         shopRepo.loadShops()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        eventBus.register(this)
     }
 
     override fun onDestroyView() {

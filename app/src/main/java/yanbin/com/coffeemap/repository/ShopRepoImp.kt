@@ -23,7 +23,7 @@ class ShopRepoImp(val networkService: NetworkService = ServiceManager.networkSer
     override fun loadNearShops(location: Location) {
         val shops = shopDao?.loadAll() as List<Shop>
         val nearShops = shops.filter { isNear(it, longitude = location.longitude, latitude = location.latitude) }
-        eventBus.post(LoadNearShopEvent(nearShops))
+        eventBus.postSticky(LoadNearShopEvent(nearShops))
     }
 
     fun isNear(shop: Shop, latitude: Double, longitude: Double) : Boolean{
