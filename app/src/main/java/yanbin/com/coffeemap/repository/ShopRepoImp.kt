@@ -16,19 +16,19 @@ class ShopRepoImp(val networkService: NetworkService = ServiceManager.networkSer
 
 
     override fun loadShops() {
-        if (hasLocalData()) {
-            getFromLocal()
-        } else {
-            getFromNetwork { getFromLocal() }
-        }
+        checkDBAndLoad { getFromLocal() }
     }
 
 
     override fun loadNearShops(location: Location) {
-        if (hasLocalData()) {
-            getNearFromLocal(location)
-        } else {
-            getFromNetwork { getNearFromLocal(location) }
+        checkDBAndLoad { getNearFromLocal(location) }
+    }
+
+    private fun checkDBAndLoad(loader: () -> Unit){
+        if(hasLocalData()){
+            loader()
+        }else{
+            getFromNetwork { loader() }
         }
     }
 

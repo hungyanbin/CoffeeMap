@@ -43,7 +43,7 @@ class NearShopGridFragment : BaseFragment() {
     }
 
     private fun checkPermissionAndGetShop(){
-        requestLocationPermission({getShops()}, {})
+        requestLocationPermission(onAccept = {getShops()}, onDenied = {})
     }
 
 
