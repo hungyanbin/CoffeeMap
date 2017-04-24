@@ -63,4 +63,8 @@ class ShopRepoImp(val networkService: NetworkService = ServiceManager.networkSer
             }
         })
     }
+
+    override fun getShopById(id: Long, callback: (shop: Shop) -> Unit) {
+        callback.invoke(shopDao!!.loadAll()[0])
+    }
 }

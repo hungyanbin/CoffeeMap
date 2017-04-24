@@ -46,7 +46,7 @@ class NearShopGridFragment : BaseFragment() {
     private fun getShops() {
         val shopRepo = ShopRepoImp()
         val locationService = ServiceManager.locationService
-        locationService.onLocated { location -> shopRepo.loadNearShops(location)}
+        locationService.onLocated { shopRepo.loadNearShops(it)}
     }
 
     override fun onDestroyView() {

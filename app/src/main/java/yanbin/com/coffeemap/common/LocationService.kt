@@ -2,9 +2,13 @@ package yanbin.com.coffeemap.common
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
-import yanbin.com.coffeemap.common.Location
+import com.google.android.gms.location.places.PlacePhotoMetadataBuffer
+import com.google.android.gms.location.places.PlacePhotoResult
+import com.google.android.gms.location.places.Places
+import yanbin.com.coffeemap.shopDetail.Constants
 
 interface LocationService {
 
@@ -12,6 +16,8 @@ interface LocationService {
     fun onStop()
     fun init(context: Context)
     fun onLocated(listener: (location: Location) -> Unit)
+
+    fun loadImage(id: Long, image: ImageView)
 }
 
 class LocationServiceImp : LocationService {
@@ -48,6 +54,8 @@ class LocationServiceImp : LocationService {
             googleApiClient = GoogleApiClient.Builder(context)
                     .addConnectionCallbacks(getConnectionCallBack())
                     .addOnConnectionFailedListener { connected = false }
+                    .addApi(Places.GEO_DATA_API)
+                    .addApi(Places.PLACE_DETECTION_API)
                     .addApi(LocationServices.API)
                     .build()
         }
@@ -67,5 +75,31 @@ class LocationServiceImp : LocationService {
             }
         }
     }
+
+    override fun loadImage(id: Long, image: ImageView) {
+        Places.GeoDataApi.getPlacePhotos(googleApiClient, Constants.PLACE_ID)
+                .setResultCallback {
+                    if(!it.status.isSuccess){
+                        return@setResultCallback
+                    }
+
+                    val photoBuffer :PlacePhotoMetadataBuffer = it.photoMetadata
+
+                    if(photoBuffer.count > 0){
+                        photoBuffer[0].getScaledPhoto(googleApiClient, image.width, image.height)
+                                .setResultCallback {
+                                    handleResult(image, it)
+                                }
+                    }
+                    photoBuffer.release()
+                }
+    }
+
+    private fun handleResult(image: ImageView, placePhotoResult: PlacePhotoResult) {
+        if (placePhotoResult.status.isSuccess) {
+            image.setImageBitmap(placePhotoResult.bitmap)
+        }
+    }
+
 
 }

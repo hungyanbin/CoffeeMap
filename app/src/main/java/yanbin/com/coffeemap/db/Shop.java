@@ -23,12 +23,14 @@ public class Shop {
     private String tasty;
     private String cheap;
     private String music;
+    private String image_url;
 
-    @Generated(hash = 1953455839)
+    @Generated(hash = 1248189460)
     public Shop(String id, String name, String address, String latitude,
             String longitude, String url, String open_time, String limited_time,
             String socket, String standing_desk, String mrt, String wifi,
-            String seat, String quit, String tasty, String cheap, String music) {
+            String seat, String quit, String tasty, String cheap, String music,
+            String image_url) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -46,10 +48,13 @@ public class Shop {
         this.tasty = tasty;
         this.cheap = cheap;
         this.music = music;
+        this.image_url = image_url;
     }
     @Generated(hash = 633476670)
     public Shop() {
     }
+
+
     public String getId() {
         return this.id;
     }
@@ -175,5 +180,11 @@ public class Shop {
         sb.append(", music='").append(music).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+    public String getImage_url() {
+        return this.image_url;
+    }
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }

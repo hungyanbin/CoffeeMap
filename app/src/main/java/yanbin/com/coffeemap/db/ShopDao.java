@@ -39,6 +39,7 @@ public class ShopDao extends AbstractDao<Shop, Void> {
         public final static Property Tasty = new Property(14, String.class, "tasty", false, "TASTY");
         public final static Property Cheap = new Property(15, String.class, "cheap", false, "CHEAP");
         public final static Property Music = new Property(16, String.class, "music", false, "MUSIC");
+        public final static Property Image_url = new Property(17, String.class, "image_url", false, "IMAGE_URL");
     }
 
 
@@ -70,7 +71,8 @@ public class ShopDao extends AbstractDao<Shop, Void> {
                 "\"QUIT\" TEXT," + // 13: quit
                 "\"TASTY\" TEXT," + // 14: tasty
                 "\"CHEAP\" TEXT," + // 15: cheap
-                "\"MUSIC\" TEXT);"); // 16: music
+                "\"MUSIC\" TEXT," + // 16: music
+                "\"IMAGE_URL\" TEXT);"); // 17: image_url
     }
 
     /** Drops the underlying database table. */
@@ -167,6 +169,11 @@ public class ShopDao extends AbstractDao<Shop, Void> {
         if (music != null) {
             stmt.bindString(17, music);
         }
+ 
+        String image_url = entity.getImage_url();
+        if (image_url != null) {
+            stmt.bindString(18, image_url);
+        }
     }
 
     @Override
@@ -257,6 +264,11 @@ public class ShopDao extends AbstractDao<Shop, Void> {
         if (music != null) {
             stmt.bindString(17, music);
         }
+ 
+        String image_url = entity.getImage_url();
+        if (image_url != null) {
+            stmt.bindString(18, image_url);
+        }
     }
 
     @Override
@@ -283,7 +295,8 @@ public class ShopDao extends AbstractDao<Shop, Void> {
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // quit
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // tasty
             cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // cheap
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16) // music
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // music
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // image_url
         );
         return entity;
     }
@@ -307,6 +320,7 @@ public class ShopDao extends AbstractDao<Shop, Void> {
         entity.setTasty(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setCheap(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
         entity.setMusic(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setImage_url(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
      }
     
     @Override
