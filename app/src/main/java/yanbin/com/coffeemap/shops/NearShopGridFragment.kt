@@ -39,7 +39,11 @@ class NearShopGridFragment : BaseFragment() {
         recycleShop.adapter = shopAdapter
         recycleShop.layoutManager = GridLayoutManager(context, 2)
         recycleShop.addItemDecoration(GridItemDecoration(2))
-        getShops()
+        checkPermissionAndGetShop()
+    }
+
+    private fun checkPermissionAndGetShop(){
+        requestLocationPermission({getShops()}, {})
     }
 
 

@@ -20,7 +20,7 @@ interface LocationService {
     fun loadImage(id: Long, image: ImageView)
 }
 
-class LocationServiceImp : LocationService {
+class LocationServiceImp(val permissionService: PermissionService = PermissionService()) : LocationService {
 
     companion object {
         private val DEFAULT_LATITUDE = 25.059195
@@ -31,12 +31,13 @@ class LocationServiceImp : LocationService {
     private var connected = false
     private var location: Location = Location(latitude = DEFAULT_LATITUDE, longitude = DEFAULT_LONGITUDE)
     private var locationCallback: ((location: Location) -> Unit)? = null
+    private var context: Context? = null
 
     override fun onLocated(listener: (location: Location) -> Unit) {
-        if(connected){
-            listener.invoke(location)
-        }
         locationCallback = listener
+        if(connected){
+            listener(location)
+        }
     }
 
 
@@ -50,9 +51,10 @@ class LocationServiceImp : LocationService {
     }
 
     override fun init(context: Context) {
+        this.context = context
         if (googleApiClient == null) {
             googleApiClient = GoogleApiClient.Builder(context)
-                    .addConnectionCallbacks(getConnectionCallBack())
+                    .addConnectionCallbacks(getConnectionCallBack(context))
                     .addOnConnectionFailedListener { connected = false }
                     .addApi(Places.GEO_DATA_API)
                     .addApi(Places.PLACE_DETECTION_API)
@@ -61,13 +63,17 @@ class LocationServiceImp : LocationService {
         }
     }
 
-    private fun getConnectionCallBack(): GoogleApiClient.ConnectionCallbacks {
+    private fun getConnectionCallBack(context: Context): GoogleApiClient.ConnectionCallbacks {
         return object : GoogleApiClient.ConnectionCallbacks {
             override fun onConnected(p0: Bundle?) {
                 connected = true
-                val googleLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient)
-                location = Location(latitude = googleLocation.latitude, longitude = googleLocation.longitude)
-                locationCallback?.invoke(location)
+
+                val hasPermission = permissionService.hasLocationPermission(context)
+                if(hasPermission) {
+                    val googleLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient)
+                    location = Location(latitude = googleLocation.latitude, longitude = googleLocation.longitude)
+                    locationCallback?.invoke(location)
+                }
             }
 
             override fun onConnectionSuspended(p0: Int) {
