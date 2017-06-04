@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_shop_detail.*
 import yanbin.com.coffeemap.R
 import yanbin.com.coffeemap.common.ServiceManager
 import yanbin.com.coffeemap.framework.BaseFragment
@@ -19,16 +18,12 @@ class ShopDetailFragment : BaseFragment() {
         }
     }
 
-    private var textName: TextView? = null
-    private var imageShop: ImageView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_shop_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        textName = view.findViewById(R.id.textName) as TextView
-        imageShop = view.findViewById(R.id.imageShop) as ImageView
         getShopDetail()
         loadPhoto()
     }

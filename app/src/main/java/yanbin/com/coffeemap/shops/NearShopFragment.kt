@@ -3,10 +3,10 @@ package yanbin.com.coffeemap.shops
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_shops.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import yanbin.com.coffeemap.framework.BaseFragment
@@ -25,8 +25,7 @@ class NearShopFragment : BaseFragment() {
         }
     }
 
-    private var rootView: View? = null
-    private var shopAdapter: ShopAdapter? = null
+    private lateinit var shopAdapter: ShopAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         eventBus.register(this)
@@ -35,8 +34,6 @@ class NearShopFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        rootView = view
-        val recycleShop = view.findViewById(R.id.recycleShop) as RecyclerView
         shopAdapter = ShopAdapter()
         recycleShop.adapter = shopAdapter
         recycleShop.layoutManager = LinearLayoutManager(context)
@@ -57,7 +54,7 @@ class NearShopFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(nearShopEvent: LoadNearShopEvent){
-        shopAdapter?.shops = nearShopEvent.shops
-        shopAdapter?.notifyDataSetChanged()
+        shopAdapter.shops = nearShopEvent.shops
+        shopAdapter.notifyDataSetChanged()
     }
 }

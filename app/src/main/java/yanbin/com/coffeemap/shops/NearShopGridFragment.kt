@@ -23,8 +23,7 @@ class NearShopGridFragment : BaseFragment() {
         }
     }
 
-    private var rootView: View? = null
-    private var shopAdapter: ShopGridAdapter? = null
+    private lateinit var shopAdapter: ShopGridAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         eventBus.register(this)
@@ -33,7 +32,6 @@ class NearShopGridFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        rootView = view
         val recycleShop = view.findViewById(R.id.recycleShop) as RecyclerView
         shopAdapter = ShopGridAdapter(context)
         recycleShop.adapter = shopAdapter
@@ -60,7 +58,7 @@ class NearShopGridFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(nearShopEvent: LoadNearShopEvent){
-        shopAdapter?.shops = nearShopEvent.shops
-        shopAdapter?.notifyDataSetChanged()
+        shopAdapter.shops = nearShopEvent.shops
+        shopAdapter.notifyDataSetChanged()
     }
 }
